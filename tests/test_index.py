@@ -10,6 +10,7 @@ import pytest
 import json
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 class Tests:
 
@@ -44,7 +45,8 @@ class Tests:
     """
     Check the h1 tag for the correct text
     """
-    elem = web_driver.find_element_by_tag_name("h1")
+    elem = web_driver.find_element(By.TAG_NAME, "h1")
+
     assert site_settings["name"] in elem.text
 
   def test_mobile_width(self, web_driver):
@@ -52,7 +54,7 @@ class Tests:
     Check the width of a responsive heading at browser width of 500px
     """
     web_driver.set_window_size(500, 800)
-    elem = web_driver.find_element_by_tag_name("h1")
+    elem = web_driver.find_element(By.TAG_NAME, "h1")
     # check that the h1 element is appropriate for mobile
     assert 500 > elem.size["width"]
 
@@ -61,6 +63,6 @@ class Tests:
     Check the width of a responsive heading at browser width of 1200px
     """
     web_driver.set_window_size(1200, 800)
-    elem = web_driver.find_element_by_tag_name("h1")
+    elem = web_driver.find_element(By.TAG_NAME, "h1")
     # check that the h1 element is appropriate for desktop
     assert 1200 > elem.size["width"] > 500
